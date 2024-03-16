@@ -1,0 +1,19 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
+development:
+  <<: *default
+  database: miniboxx_development
+
+test:
+  <<: *default
+  database: miniboxx_test
+
+production:
+  <<: *default
+  database: miniboxx_production
+  username: miniboxx
+  password: <%= ENV["MINIBOXX_DATABASE_PASSWORD"] %>
