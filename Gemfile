@@ -75,3 +75,5 @@ gem "tailwindcss-rails", "~> 2.3"
 gem "simple_form"
 
 gem "devise", "~> 4.9"
+gem "dotenv-rails"
+gem "cloudinary"
