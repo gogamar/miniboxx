@@ -1,4 +1,5 @@
 class CartItemsController < ApplicationController
+  before_action :set_cart, only: %i[ show create edit update destroy ]
   before_action :set_cart_item, only: %i[ show edit update destroy ]
 
   # GET /cart_items
@@ -22,8 +23,11 @@ class CartItemsController < ApplicationController
   # POST /cart_items
   def create
     @cart_item = CartItem.new(cart_item_params)
+    @cart_item.cart = @cart
+    @cart_item.quantity = 1
 
     if @cart_item.save
+      @cart.update_total_price
       redirect_to @cart_item, notice: "Cart item was successfully created."
     else
       render :new, status: :unprocessable_entity
@@ -33,6 +37,7 @@ class CartItemsController < ApplicationController
   # PATCH/PUT /cart_items/1
   def update
     if @cart_item.update(cart_item_params)
+      @cart.update_total_price
       redirect_to @cart_item, notice: "Cart item was successfully updated.", status: :see_other
     else
       render :edit, status: :unprocessable_entity
@@ -46,13 +51,16 @@ class CartItemsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_cart_item
-      @cart_item = CartItem.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def cart_item_params
-      params.require(:cart_item).permit(:quantity, :cart_id, :product_id)
-    end
+  def set_cart
+    @cart = current_user.cart.present? ? current_user.cart : Cart.create(user_id: current_user.id)
+  end
+
+  def set_cart_item
+    @cart_item = CartItem.find(params[:id])
+  end
+
+  def cart_item_params
+    params.require(:cart_item).permit(:quantity, :cart_id, :variant_size_id)
+  end
 end

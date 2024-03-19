@@ -5,6 +5,8 @@ class Variant < ApplicationRecord
   has_many :variant_sizes
   has_many :sizes, through: :variant_sizes
   has_many :image_urls
+  has_many :cart_items
+  has_many :order_items
 
   def add_image_urls
     image_types = ['front', 'front1', 'back', 'back1', 'detail']

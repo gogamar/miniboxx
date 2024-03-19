@@ -9,7 +9,7 @@ one:
   user: one
   shipping_address: one
   billing_address: one
-  discount_code: one
+  discount: one
 
 two:
   status: MyString
@@ -20,4 +20,4 @@ two:
   user: two
   shipping_address: two
   billing_address: two
-  discount_code: two
+  discount: two

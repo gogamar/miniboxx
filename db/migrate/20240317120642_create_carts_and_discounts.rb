@@ -23,8 +23,6 @@ class CreateCartsAndDiscounts < ActiveRecord::Migration[7.0]
       t.text :notes
       t.string :session_id
       t.references :user, foreign_key: true
-      t.references :shipping_address, foreign_key: true
-      t.references :billing_address, foreign_key: true
       t.references :discount, foreign_key: true
 
       t.timestamps

@@ -22,10 +22,12 @@ class OrdersController < ApplicationController
   # POST /orders
   def create
     @order = Order.new(order_params)
+    @order.user = current_user
 
     if @order.save
-      redirect_to @order, notice: "Order was successfully created."
+      redirect_to checkout_path(order_id: @order.id)
     else
+      puts "the order is not created with the following params: #{order_params}"
       render :new, status: :unprocessable_entity
     end
   end
@@ -45,7 +47,7 @@ class OrdersController < ApplicationController
     redirect_to orders_url, notice: "Order was successfully destroyed.", status: :see_other
   end
 
-  private
+ private
     # Use callbacks to share common setup or constraints between actions.
     def set_order
       @order = Order.find(params[:id])

@@ -72,7 +72,7 @@
             <% end %>
           </div>
         </div>
-        <form class="mt-6">
+        <%= form_with(model: @cart_item, local: true, class: "mt-6") do |form| %>
           <!-- Size picker -->
           <div class="mt-8" data-controller="radio-buttons">
             <div class="flex items-center justify-between">
@@ -82,23 +82,18 @@
             <fieldset class="mt-2">
               <legend class="sr-only">Choose a size</legend>
               <div class="grid grid-cols-3 gap-3 sm:grid-cols-6">
-                <!--
-                    In Stock: "cursor-pointer", Out of Stock: "opacity-25 cursor-not-allowed"
-                    Active: "ring-2 ring-cyan-500 ring-offset-2"
-                    Checked: "border-transparent bg-cyan-600 text-white hover:bg-cyan-700", Not Checked: "border-gray-200 bg-white text-gray-900 hover:bg-gray-50"
-                  -->
                 <% @variant.variant_sizes.each_with_index do |variant_size, index| %>
                   <% stock_class = variant_size.quantity > 0 ? "cursor-pointer" : "opacity-25 cursor-not-allowed" %>
                   <label class="flex items-center justify-center rounded-md border py-3 px-3 text-sm font-medium uppercase sm:flex-1 cursor-pointer focus:outline-none <%= stock_class %> border-gray-200 bg-white text-gray-900 hover:bg-gray-50">
-                    <input type="radio" name="variant_size[id]" value=<%= variant_size.size.name %> class="sr-only" aria-labelledby="variant-size-<%= index %>-label" data-radio-buttons-target="radioButton">
+                    <%= form.radio_button "variant_size_id", variant_size.id, class: "sr-only", id: "variant-size-#{index}", required: true, data: { radio_buttons_target: "radioButton" } %>
                     <span id="variant-size-<%= index %>-label"><%= variant_size.size.name %></span>
                   </label>
                 <% end %>
               </div>
             </fieldset>
           </div>
-          <button type="submit" class="mt-8 flex w-full items-center justify-center rounded-md border border-transparent bg-cyan-600 px-8 py-3 text-base font-medium text-white hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2">Add to cart</button>
-        </form>
+          <%= form.submit "Add to Cart", class: "mt-8 flex w-full items-center justify-center rounded-md border border-transparent bg-cyan-600 px-8 py-3 text-base font-medium text-white hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2" %>
+        <% end %>
         <!-- Policies -->
         <section aria-labelledby="policies-heading" class="mt-10">
           <h2 id="policies-heading" class="sr-only">Our Policies</h2>

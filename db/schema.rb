@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_18_130154) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_19_205601) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -66,11 +66,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_18_130154) do
   create_table "cart_items", force: :cascade do |t|
     t.integer "quantity"
     t.bigint "cart_id", null: false
-    t.bigint "product_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "variant_size_id", null: false
     t.index ["cart_id"], name: "index_cart_items_on_cart_id"
-    t.index ["product_id"], name: "index_cart_items_on_product_id"
+    t.index ["variant_size_id"], name: "index_cart_items_on_variant_size_id"
   end
 
   create_table "carts", force: :cascade do |t|
@@ -80,14 +80,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_18_130154) do
     t.text "notes"
     t.string "session_id"
     t.bigint "user_id"
-    t.bigint "shipping_address_id"
-    t.bigint "billing_address_id"
     t.bigint "discount_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["billing_address_id"], name: "index_carts_on_billing_address_id"
     t.index ["discount_id"], name: "index_carts_on_discount_id"
-    t.index ["shipping_address_id"], name: "index_carts_on_shipping_address_id"
     t.index ["user_id"], name: "index_carts_on_user_id"
   end
 
@@ -134,12 +130,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_18_130154) do
   create_table "order_items", force: :cascade do |t|
     t.integer "quantity"
     t.decimal "price_at_order_time"
-    t.bigint "product_id"
     t.bigint "order_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "variant_size_id", null: false
     t.index ["order_id"], name: "index_order_items_on_order_id"
-    t.index ["product_id"], name: "index_order_items_on_product_id"
+    t.index ["variant_size_id"], name: "index_order_items_on_variant_size_id"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -264,15 +260,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_18_130154) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "billing_addresses", "users"
   add_foreign_key "cart_items", "carts"
-  add_foreign_key "cart_items", "products"
-  add_foreign_key "carts", "billing_addresses"
+  add_foreign_key "cart_items", "variant_sizes"
   add_foreign_key "carts", "discounts"
-  add_foreign_key "carts", "shipping_addresses"
   add_foreign_key "carts", "users"
   add_foreign_key "discounts", "users"
   add_foreign_key "image_urls", "variants"
   add_foreign_key "order_items", "orders"
-  add_foreign_key "order_items", "products"
+  add_foreign_key "order_items", "variant_sizes"
   add_foreign_key "orders", "billing_addresses"
   add_foreign_key "orders", "shipping_addresses"
   add_foreign_key "orders", "users"

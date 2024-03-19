@@ -1,6 +1,10 @@
 class Cart < ApplicationRecord
-  belongs_to :user
-  belongs_to :shipping_address
-  belongs_to :billing_address
-  belongs_to :discount_code
+  has_many :cart_items
+  belongs_to :user, optional: true
+  belongs_to :discount, optional: true
+
+  def update_total_price
+    self.total_price = cart_items.sum { |cart_item| cart_item.variant.product.rrp_value * cart_item.quantity }
+    save
+  end
 end

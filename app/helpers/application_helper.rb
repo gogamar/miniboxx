@@ -44,4 +44,8 @@ module ApplicationHelper
     end
     return flag_code
   end
+
+  def cart_items_count
+    current_user&.cart&.cart_items&.count || 0
+  end
 end

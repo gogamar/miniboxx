@@ -2,13 +2,16 @@ class VariantsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[ index show ]
   before_action :set_variant, only: %i[ show edit update destroy ]
 
-  # GET /variants
   def index
     @variants = Variant.joins(:image_urls).distinct
+    @products = Product.all
+    @products = Product.filter_by_category(params[:category_id], @products)
+    @products = Product.filter_by_gender(params[:gender], @products)
+    @variants = Variant.where(product_id: @products.ids)
   end
 
-  # GET /variants/1
   def show
+    @cart_item = CartItem.new
   end
 
   # GET /variants/new
