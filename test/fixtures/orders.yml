@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  status: MyString
+  order_number: 1
+  total_items: 1
+  total_price: 9.99
+  notes: MyText
+  payment_method: MyString
+  payment_status: MyString
+  shipping_method: MyString
+  shipping_cost: MyString
+  estimated_delivery_date: MyString
+  tracking_number: MyString
+
+two:
+  status: MyString
+  order_number: 1
+  total_items: 1
+  total_price: 9.99
+  notes: MyText
+  payment_method: MyString
+  payment_status: MyString
+  shipping_method: MyString
+  shipping_cost: MyString
+  estimated_delivery_date: MyString
+  tracking_number: MyString

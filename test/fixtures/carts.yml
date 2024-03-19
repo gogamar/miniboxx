@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  status: MyString
+  total_items: 1
+  total_price: 9.99
+  notes: MyText
+  session_id: MyString
+  user: one
+  shipping_address: one
+  billing_address: one
+  discount_code: one
+
+two:
+  status: MyString
+  total_items: 1
+  total_price: 9.99
+  notes: MyText
+  session_id: MyString
+  user: two
+  shipping_address: two
+  billing_address: two
+  discount_code: two

@@ -25,7 +25,7 @@ gem "turbo-rails"
 gem "stimulus-rails"
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
-gem "jbuilder"
+# gem "jbuilder"
 
 # Use Redis adapter to run Action Cable in production
 gem "redis", "~> 4.0"
@@ -74,6 +74,11 @@ end
 gem "tailwindcss-rails", "~> 2.3"
 gem "simple_form"
 
+gem 'rails-i18n'
 gem "devise", "~> 4.9"
+gem 'devise-i18n'
 gem "dotenv-rails"
 gem "cloudinary"
+gem 'flag-icons-rails'
+gem "roo", "~> 2.10.0"
+# gem "pundit"

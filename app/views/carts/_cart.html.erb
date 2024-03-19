@@ -1,0 +1,52 @@
+<div id="<%= dom_id cart %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Status:</strong>
+    <%= cart.status %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Total items:</strong>
+    <%= cart.total_items %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Total price:</strong>
+    <%= cart.total_price %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Notes:</strong>
+    <%= cart.notes %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Session:</strong>
+    <%= cart.session_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">User:</strong>
+    <%= cart.user_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Shipping address:</strong>
+    <%= cart.shipping_address_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Billing address:</strong>
+    <%= cart.billing_address_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Discount code:</strong>
+    <%= cart.discount_code_id %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this cart", cart, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Edit this cart", edit_cart_path(cart), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

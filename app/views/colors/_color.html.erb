@@ -1,0 +1,22 @@
+<div id="<%= dom_id color %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Name:</strong>
+    <%= color.name %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Color code:</strong>
+    <%= color.color_code %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Variant:</strong>
+    <%= color.variant_id %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this color", color, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Edit this color", edit_color_path(color), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

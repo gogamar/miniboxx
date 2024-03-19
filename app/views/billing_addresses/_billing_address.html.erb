@@ -1,0 +1,47 @@
+<div id="<%= dom_id billing_address %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Name:</strong>
+    <%= billing_address.name %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Vat number:</strong>
+    <%= billing_address.vat_number %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Address first:</strong>
+    <%= billing_address.address_first %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Address second:</strong>
+    <%= billing_address.address_second %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Post code:</strong>
+    <%= billing_address.post_code %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">City:</strong>
+    <%= billing_address.city %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Region:</strong>
+    <%= billing_address.region %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Country:</strong>
+    <%= billing_address.country %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this billing address", billing_address, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Edit this billing address", edit_billing_address_path(billing_address), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

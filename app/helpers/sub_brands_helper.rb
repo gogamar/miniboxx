@@ -1,0 +1,2 @@
+module SubBrandsHelper
+end
