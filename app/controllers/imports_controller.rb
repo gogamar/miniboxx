@@ -29,7 +29,11 @@ class ImportsController < ApplicationController
         product.sub_brand = sub_brand
         product.style_name = row['Style Name']
         product.sales_description = row['Sales Description']
+        formatted_sales = product.sales_description.gsub("\n", "<br>")
+        product.sales_description = formatted_sales
         product.quality_description = row['Quality Description']
+        formatted_quality = product.quality_description.gsub("\n", "<br>")
+        product.quality_description = formatted_quality
         product.short_description = row['Short Description']
         product.gender = row["Gender"]
         product.fit = row["Fit"]
@@ -39,6 +43,8 @@ class ImportsController < ApplicationController
         product.mark_up = row["Mark Up"]
         product.care_label = row["Care Label"]
         product.wash_care = row["Wash and Care"]
+        formatted_wash = product.wash_care.gsub("\n", "<br>")
+        product.wash_care = formatted_wash
         product.fashion_forward = row["Fashion Forward"]
         product.save!
 

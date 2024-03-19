@@ -9,10 +9,10 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-  <body>
-    <header class="sticky top-0 z-50">
-      <%= render "shared/topbar" %>
-      <%= render "shared/navbar" %>
+  <body class="bg-gray-50">
+    <%= render "shared/navbar" %>
+    <header class="relative bg-white">
+      <%# render "shared/header" %>
     </header>
     <main>
       <%= yield %>

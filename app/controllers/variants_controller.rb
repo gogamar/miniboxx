@@ -1,4 +1,5 @@
 class VariantsController < ApplicationController
+  skip_before_action :authenticate_user!, only: %i[ index show ]
   before_action :set_variant, only: %i[ show edit update destroy ]
 
   # GET /variants

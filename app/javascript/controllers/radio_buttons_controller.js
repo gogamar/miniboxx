@@ -19,11 +19,11 @@ export default class extends Controller {
       console.log(button.parentNode.classList);
       button.parentNode.classList.remove(
         "border-transparent",
-        "bg-indigo-600",
+        "bg-cyan-600",
         "text-white",
-        "hover:bg-indigo-700",
+        "hover:bg-cyan-700",
         "ring-2",
-        "ring-indigo-500",
+        "ring-cyan-500",
         "ring-offset-2"
       );
 
@@ -44,11 +44,11 @@ export default class extends Controller {
       );
       selectedButton.parentNode.classList.add(
         "border-transparent",
-        "bg-indigo-600",
+        "bg-cyan-600",
         "text-white",
-        "hover:bg-indigo-700",
+        "hover:bg-cyan-700",
         "ring-2",
-        "ring-indigo-500",
+        "ring-cyan-500",
         "ring-offset-2"
       );
     }
@@ -57,7 +57,7 @@ export default class extends Controller {
   handleRadioFocus(event) {
     event.target.parentNode.classList.add(
       "ring-2",
-      "ring-indigo-500",
+      "ring-cyan-500",
       "ring-offset-2"
     );
   }
@@ -65,7 +65,7 @@ export default class extends Controller {
   handleRadioBlur(event) {
     event.target.parentNode.classList.remove(
       "ring-2",
-      "ring-indigo-500",
+      "ring-cyan-500",
       "ring-offset-2"
     );
   }

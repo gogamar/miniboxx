@@ -1,19 +1,19 @@
-<div class="bg-white" data-controller="tabs">
+<div class="bg-white">
   <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
     <div class="lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-8">
       <!-- Image gallery -->
-      <div class="col-span-7 lg:grid lg:grid-cols-12">
+      <div class="col-span-7 lg:grid lg:grid-cols-12" data-controller="tabs">
         <!-- Image selector -->
         <div class="col-span-2">
           <div class="mx-auto mt-6 hidden w-full max-w-2xl sm:block lg:max-w-none">
             <div class="grid grid-cols-1 gap-6" aria-orientation="horizontal" role="tablist">
               <% @variant.image_urls.each_with_index do |image_url, index| %>
-                <button id="tabs-1-tab-<%= index + 1 %>" class="relative flex h-24 cursor-pointer items-center justify-center rounded-md bg-white text-sm font-medium uppercase text-gray-900 hover:bg-gray-50 focus:outline-none focus:ring focus:ring-opacity-50 focus:ring-offset-4" aria-controls="tabs-1-panel-<%= index + 1 %>" role="tab" type="button" data-tabs-target="tab" data-action="click->tabs#change">
+                <button id="tabs-2-tab-<%= index + 1 %>" class="relative flex h-24 cursor-pointer items-center justify-center rounded-md bg-white text-sm font-medium uppercase text-gray-900 hover:bg-gray-50 focus:outline-none focus:ring focus:ring-opacity-50 focus:ring-offset-4" aria-controls="tabs-2-panel-<%= index + 1 %>" role="tab" type="button" data-tabs-target="tab" data-action="click->tabs#change">
                   <span class="sr-only">Angled view</span>
                   <span class="absolute inset-0 overflow-hidden rounded-md">
                     <img src=<%= image_url.url %> alt="" class="h-full w-full object-contain object-center">
                   </span>
-                  <!-- Selected: "ring-indigo-500", Not Selected: "ring-transparent" -->
+                  <!-- Selected: "ring-cyan-500", Not Selected: "ring-transparent" -->
                   <span class="ring-transparent pointer-events-none absolute inset-0 rounded-md ring-2 ring-offset-2" aria-hidden="true"></span>
                 </button>
               <% end %>
@@ -24,13 +24,21 @@
           <div class="aspect-h-1 aspect-w-1 w-full">
             <!-- Tab panel, show/hide based on tab state. -->
             <% @variant.image_urls.each_with_index do |image_url, index| %>
-              <div aria-labelledby="tabs-1-tab-<%= index + 1 %>" role="tabpanel" tabindex="0" data-tabs-target="panel">
+              <div id="tabs-2-panel-<%= index + 1 %>" aria-labelledby="tabs-2-tab-<%= index + 1 %>" role="tabpanel" tabindex="0" data-tabs-target="panel">
                 <img src=<%= image_url.url %> alt="Angled front view with bag zipped and handles upright." class="h-full w-full object-contain object-center sm:rounded-lg">
               </div>
             <% end %>
           </div>
         </div>
         <div class="col-span-12 row-start-2">
+          <div class="mt-8 border-t border-gray-200 pt-8">
+            <h2 class="text-sm font-medium text-gray-900">Quality Description</h2>
+            <div class="prose prose-sm mt-4 text-gray-500">
+              <%= @variant.product.quality_description.html_safe %>
+            </div>
+          </div>
+        </div>
+        <div class="col-span-12 row-start-3">
           <div class="mt-8 border-t border-gray-200 pt-8">
             <h2 class="text-sm font-medium text-gray-900">Fabric &amp; Care</h2>
             <div class="prose prose-sm mt-4 text-gray-500">
@@ -69,15 +77,15 @@
           <div class="mt-8" data-controller="radio-buttons">
             <div class="flex items-center justify-between">
               <h2 class="text-sm font-medium text-gray-900">Size</h2>
-              <a href="#" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">See sizing chart</a>
+              <a href="#" class="text-sm font-medium text-cyan-600 hover:text-cyan-500">See sizing chart</a>
             </div>
             <fieldset class="mt-2">
               <legend class="sr-only">Choose a size</legend>
               <div class="grid grid-cols-3 gap-3 sm:grid-cols-6">
                 <!--
                     In Stock: "cursor-pointer", Out of Stock: "opacity-25 cursor-not-allowed"
-                    Active: "ring-2 ring-indigo-500 ring-offset-2"
-                    Checked: "border-transparent bg-indigo-600 text-white hover:bg-indigo-700", Not Checked: "border-gray-200 bg-white text-gray-900 hover:bg-gray-50"
+                    Active: "ring-2 ring-cyan-500 ring-offset-2"
+                    Checked: "border-transparent bg-cyan-600 text-white hover:bg-cyan-700", Not Checked: "border-gray-200 bg-white text-gray-900 hover:bg-gray-50"
                   -->
                 <% @variant.variant_sizes.each_with_index do |variant_size, index| %>
                   <% stock_class = variant_size.quantity > 0 ? "cursor-pointer" : "opacity-25 cursor-not-allowed" %>
@@ -89,7 +97,7 @@
               </div>
             </fieldset>
           </div>
-          <button type="submit" class="mt-8 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Add to cart</button>
+          <button type="submit" class="mt-8 flex w-full items-center justify-center rounded-md border border-transparent bg-cyan-600 px-8 py-3 text-base font-medium text-white hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2">Add to cart</button>
         </form>
         <!-- Policies -->
         <section aria-labelledby="policies-heading" class="mt-10">
