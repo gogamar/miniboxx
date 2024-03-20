@@ -4,7 +4,8 @@ Rails.application.routes.draw do
     get 'about', to: 'pages#about'
     get 'contact', to: 'pages#contact'
     get 'cart', to: 'pages#cart', as: :cart
-    get 'checkout', to: 'pages#checkout', as: :checkout
+    get 'checkout', to: 'checkouts#checkout', as: :checkout
+    get 'confirm', to: 'checkouts#confirm', as: :confirm
     resources :sizes
     resources :colors
     resources :variants
@@ -21,7 +22,6 @@ Rails.application.routes.draw do
     resources :sub_categories
     resources :categories
     devise_for :users
-
 
     resource :imports, only: [] do
       collection do

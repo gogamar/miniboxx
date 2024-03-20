@@ -22,6 +22,7 @@ class ShippingAddressesController < ApplicationController
   # POST /shipping_addresses
   def create
     @shipping_address = ShippingAddress.new(shipping_address_params)
+    @shipping_address.user = current_user
 
     if @shipping_address.save
       redirect_to @shipping_address, notice: "Shipping address was successfully created."

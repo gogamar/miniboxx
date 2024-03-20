@@ -85,7 +85,7 @@
                 <% @variant.variant_sizes.each_with_index do |variant_size, index| %>
                   <% stock_class = variant_size.quantity > 0 ? "cursor-pointer" : "opacity-25 cursor-not-allowed" %>
                   <label class="flex items-center justify-center rounded-md border py-3 px-3 text-sm font-medium uppercase sm:flex-1 cursor-pointer focus:outline-none <%= stock_class %> border-gray-200 bg-white text-gray-900 hover:bg-gray-50">
-                    <%= form.radio_button "variant_size_id", variant_size.id, class: "sr-only", id: "variant-size-#{index}", required: true, data: { radio_buttons_target: "radioButton" } %>
+                    <%= form.radio_button "variant_size_id", variant_size.id, class: "sr-only", id: "variant-size-#{index}", required: true, data: { radio_buttons_target: "radioButton", checked_style: "border-transparent bg-cyan-600 text-white hover:bg-cyan-700 ring-2 ring-cyan-500 ring-offset-2", unchecked_style: "border-gray-200 bg-white text-gray-900 hover:bg-gray-50", focus_style: "ring-2 ring-cyan-500 ring-offset-2"} %>
                     <span id="variant-size-<%= index %>-label"><%= variant_size.size.name %></span>
                   </label>
                 <% end %>

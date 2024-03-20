@@ -13,60 +13,25 @@ export default class extends Controller {
 
   handleRadioChange(event) {
     const selectedButton = event.target;
-    console.log(selectedButton);
+    const checkedClasses = selectedButton.dataset.checkedStyle.split(" ");
+    const uncheckedClasses = selectedButton.dataset.uncheckedStyle.split(" ");
+    const focusClasses = selectedButton.dataset.focusStyle.split(" ");
 
     this.radioButtonTargets.forEach((button) => {
-      console.log(button.parentNode.classList);
-      button.parentNode.classList.remove(
-        "border-transparent",
-        "bg-cyan-600",
-        "text-white",
-        "hover:bg-cyan-700",
-        "ring-2",
-        "ring-cyan-500",
-        "ring-offset-2"
-      );
-
-      button.parentNode.classList.remove(
-        "border-gray-200",
-        "bg-white",
-        "text-gray-900",
-        "hover:bg-gray-50"
-      );
+      button.parentNode.classList.remove(...checkedClasses);
     });
 
     if (selectedButton.checked) {
-      selectedButton.parentNode.classList.remove(
-        "border-gray-200",
-        "bg-white",
-        "text-gray-900",
-        "hover:bg-gray-50"
-      );
-      selectedButton.parentNode.classList.add(
-        "border-transparent",
-        "bg-cyan-600",
-        "text-white",
-        "hover:bg-cyan-700",
-        "ring-2",
-        "ring-cyan-500",
-        "ring-offset-2"
-      );
+      selectedButton.parentNode.classList.remove(...uncheckedClasses);
+      selectedButton.parentNode.classList.add(...checkedClasses);
     }
   }
 
   handleRadioFocus(event) {
-    event.target.parentNode.classList.add(
-      "ring-2",
-      "ring-cyan-500",
-      "ring-offset-2"
-    );
+    event.target.parentNode.classList.add(...focusClasses);
   }
 
   handleRadioBlur(event) {
-    event.target.parentNode.classList.remove(
-      "ring-2",
-      "ring-cyan-500",
-      "ring-offset-2"
-    );
+    event.target.parentNode.classList.remove(...focusClasses);
   }
 }

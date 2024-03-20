@@ -19,7 +19,7 @@
       </div>
       <div class="mt-4 sm:mt-0 sm:pr-9">
         <label for="quantity-0" class="sr-only"><%= t('quantity') %></label>
-        <select id="quantity-0" name="quantity-0" class="max-w-full rounded-md border border-gray-300 py-1.5 text-left text-base font-medium leading-5 text-gray-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm">
+        <select data-cart-target="quantity" data-price="<%= cart_item.variant.product.rrp_value %>" data-action="cart#updatePrice" id="quantity-0" name="quantity-0" class="max-w-full rounded-md border border-gray-300 py-1.5 text-left text-base font-medium leading-5 text-gray-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm">
           <% (1..cart_item.variant_size.quantity).to_a.each do |q| %>
             <option value="<%= q %>"><%= q %></option>
           <% end %>

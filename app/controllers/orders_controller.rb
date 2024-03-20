@@ -25,7 +25,8 @@ class OrdersController < ApplicationController
     @order.user = current_user
 
     if @order.save
-      redirect_to checkout_path(order_id: @order.id)
+      render(partial: 'order', locals: { order: @order })
+      # redirect_to checkout_path(order_id: @order.id)
     else
       puts "the order is not created with the following params: #{order_params}"
       render :new, status: :unprocessable_entity
@@ -35,7 +36,8 @@ class OrdersController < ApplicationController
   # PATCH/PUT /orders/1
   def update
     if @order.update(order_params)
-      redirect_to @order, notice: "Order was successfully updated.", status: :see_other
+      render(partial: 'order', locals: { order: @order })
+      # redirect_to @order, notice: "Order was successfully updated.", status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end
