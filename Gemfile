@@ -51,6 +51,7 @@ gem "bootsnap", require: false
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem 'dotenv-rails'
 end
 
 group :development do
@@ -77,8 +78,10 @@ gem "simple_form"
 gem 'rails-i18n'
 gem "devise", "~> 4.9"
 gem 'devise-i18n'
-gem "dotenv-rails"
 gem "cloudinary"
 gem 'flag-icons-rails'
 gem "roo", "~> 2.10.0"
+gem 'nokogiri'
+gem 'stripe'
+gem 'stripe_event'
 # gem "pundit"

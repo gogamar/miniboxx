@@ -15,23 +15,37 @@ export default class extends Controller {
     const selectedButton = event.target;
     const checkedClasses = selectedButton.dataset.checkedStyle.split(" ");
     const uncheckedClasses = selectedButton.dataset.uncheckedStyle.split(" ");
-    const focusClasses = selectedButton.dataset.focusStyle.split(" ");
 
     this.radioButtonTargets.forEach((button) => {
-      button.parentNode.classList.remove(...checkedClasses);
+      const label = button.parentElement;
+      label.classList.remove(...checkedClasses);
+      label.classList.add(...uncheckedClasses);
+      const svgElement = label.querySelector("svg");
+      if (svgElement) {
+        svgElement.classList.add("hidden");
+      }
     });
 
     if (selectedButton.checked) {
-      selectedButton.parentNode.classList.remove(...uncheckedClasses);
-      selectedButton.parentNode.classList.add(...checkedClasses);
+      const label = selectedButton.parentElement;
+      label.classList.remove(...uncheckedClasses);
+      label.classList.add(...checkedClasses);
+      const svgElement = label.querySelector("svg");
+      if (svgElement) {
+        svgElement.classList.remove("hidden");
+      }
     }
   }
 
   handleRadioFocus(event) {
+    const selectedButton = event.target;
+    const focusClasses = selectedButton.dataset.focusStyle.split(" ");
     event.target.parentNode.classList.add(...focusClasses);
   }
 
   handleRadioBlur(event) {
+    const selectedButton = event.target;
+    const focusClasses = selectedButton.dataset.focusStyle.split(" ");
     event.target.parentNode.classList.remove(...focusClasses);
   }
 }

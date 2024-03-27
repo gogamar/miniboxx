@@ -265,10 +265,12 @@
                 <!-- Mega menus -->
                 <div class="ml-8">
                   <div class="flex h-full justify-center space-x-8">
-                    <div class="flex" data-controller="dropdown" data-action="click->dropdown#toggle click@window->dropdown#hide">
+                    <div class="flex" data-controller="dropdown"
+                        data-action="click@window->dropdown#hide touchstart@window->dropdown#hide keydown.up->dropdown#previousItem keydown.down->dropdown#nextItem keydown.esc->dropdown#hide"
+                      class="inline-block relative">
                       <div class="relative flex" id="dropdown-button">
                         <!-- Item active: "border-indigo-600 text-indigo-600", Item inactive: "border-transparent text-gray-700 hover:text-gray-800" -->
-                        <button type="button" class="border-transparent text-gray-700 hover:text-gray-800 relative z-10 -mb-px flex items-center border-b-2 pt-px text-sm font-medium transition-colors duration-200 ease-out" aria-expanded="false" data-dropdown-target="button"><%= t('girls') %></button>
+                        <button type="button" class="border-transparent text-gray-700 hover:text-gray-800 relative z-10 -mb-px flex items-center border-b-2 pt-px text-sm font-medium transition-colors duration-200 ease-out" aria-expanded="false" data-action="dropdown#toggle:stop"><%= t('girls') %></button>
                       </div>
                       <!--
                         'Girls' mega menu, show/hide based on flyout menu state.
@@ -282,10 +284,12 @@
                       -->
                       <%= render "shared/mega_menu", gender: 'Female' %>
                     </div>
-                    <div class="flex" data-controller="dropdown" data-action="click->dropdown#toggle click@window->dropdown#hide">
+                    <div class="flex" data-controller="dropdown"
+                        data-action="click@window->dropdown#hide touchstart@window->dropdown#hide keydown.up->dropdown#previousItem keydown.down->dropdown#nextItem keydown.esc->dropdown#hide"
+                      class="inline-block relative">
                       <div class="relative flex" id="dropdown-button">
                         <!-- Item active: "border-indigo-600 text-indigo-600", Item inactive: "border-transparent text-gray-700 hover:text-gray-800" -->
-                        <button type="button" class="border-transparent text-gray-700 hover:text-gray-800 relative z-10 -mb-px flex items-center border-b-2 pt-px text-sm font-medium transition-colors duration-200 ease-out" aria-expanded="false" data-dropdown-target="button"><%= t('boys') %></button>
+                        <button type="button" class="border-transparent text-gray-700 hover:text-gray-800 relative z-10 -mb-px flex items-center border-b-2 pt-px text-sm font-medium transition-colors duration-200 ease-out" aria-expanded="false" data-action="dropdown#toggle:stop"><%= t('boys') %></button>
                       </div>
                       <!--
                         'Boys' mega menu, show/hide based on flyout menu state.

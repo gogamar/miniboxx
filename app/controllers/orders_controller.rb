@@ -1,61 +1,39 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: %i[ show edit update destroy ]
 
-  # GET /orders
   def index
     @orders = Order.all
   end
 
-  # GET /orders/1
   def show
+    @order = current_user.orders.find(params[:id])
   end
 
-  # GET /orders/new
-  def new
-    @order = Order.new
-  end
-
-  # GET /orders/1/edit
-  def edit
-  end
-
-  # POST /orders
   def create
-    @order = Order.new(order_params)
-    @order.user = current_user
+    @order  = Order.create!(status: "pending", order_number: Order.count + 1, total_items: current_user.cart.total_items, total_price: current_user.cart.total_price, notes: current_user.cart.notes, shipping_address_id: params[:shipping_address], user: current_user)
 
-    if @order.save
-      render(partial: 'order', locals: { order: @order })
-      # redirect_to checkout_path(order_id: @order.id)
-    else
-      puts "the order is not created with the following params: #{order_params}"
-      render :new, status: :unprocessable_entity
-    end
-  end
+    session = Stripe::Checkout::Session.create(
+      payment_method_types: ['card'],
+      line_items: [{
+        amount: (@order.total_price * 100).to_i, # Total amount in cents
+        currency: 'eur',
+        quantity: @order.total_items,
+        name: "Miniboxx Order"
+      }],
+      mode: 'payment',
+      success_url: order_url(@order),
+      cancel_url: order_url(@order)
+    )
 
-  # PATCH/PUT /orders/1
-  def update
-    if @order.update(order_params)
-      render(partial: 'order', locals: { order: @order })
-      # redirect_to @order, notice: "Order was successfully updated.", status: :see_other
-    else
-      render :edit, status: :unprocessable_entity
-    end
-  end
+    intent = Stripe::PaymentIntent.create({
+      amount: amount,
+      currency: currency
+    })
 
-  # DELETE /orders/1
-  def destroy
-    @order.destroy
-    redirect_to orders_url, notice: "Order was successfully destroyed.", status: :see_other
+    order.update(checkout_session_id: session.id)
+    redirect_to new_order_payment_path(@order)
   end
 
  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_order
-      @order = Order.find(params[:id])
-    end
-
-    # Only allow a list of trusted parameters through.
     def order_params
       params.require(:order).permit(:status, :order_number, :total_items, :total_price, :notes, :payment_method, :payment_status, :shipping_method, :shipping_cost, :estimated_delivery_date, :tracking_number)
     end

@@ -3,8 +3,8 @@
 one:
   style_number: 1
   style_name: MyString
-  sales_description: MyText
-  quality_description: MyText
+  sales_description_en: MyText
+  quality_description_en: MyText
   short_description: MyText
   gender: MyString
   fit: MyString
@@ -17,14 +17,14 @@ one:
   quantity: 1
   mark_up: 9.99
   care_label: MyString
-  wash_care: MyText
+  wash_care_en: MyText
   fashion_forward: MyText
 
 two:
   style_number: 1
   style_name: MyString
-  sales_description: MyText
-  quality_description: MyText
+  sales_description_en: MyText
+  quality_description_en: MyText
   short_description: MyText
   gender: MyString
   fit: MyString
@@ -37,5 +37,5 @@ two:
   quantity: 1
   mark_up: 9.99
   care_label: MyString
-  wash_care: MyText
+  wash_care_en: MyText
   fashion_forward: MyText

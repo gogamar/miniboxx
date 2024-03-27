@@ -21,16 +21,16 @@ class ProductsTest < ApplicationSystemTestCase
     fill_in "Fit", with: @product.fit
     fill_in "Gender", with: @product.gender
     fill_in "Mark up", with: @product.mark_up
-    fill_in "Quality description", with: @product.quality_description
+    fill_in "Quality description", with: @product.quality_description_en
     fill_in "Quantity", with: @product.quantity
     fill_in "Rrp value", with: @product.rrp_value
-    fill_in "Sales description", with: @product.sales_description
+    fill_in "Sales description", with: @product.sales_description_en
     fill_in "Short description", with: @product.short_description
     fill_in "Size name", with: @product.size_name
     fill_in "Style name", with: @product.style_name
     fill_in "Style number", with: @product.style_number
     fill_in "Variant", with: @product.variant_id
-    fill_in "Wash care", with: @product.wash_care
+    fill_in "Wash care", with: @product.wash_care_en
     fill_in "Wsp value", with: @product.wsp_value
     click_on "Create Product"
 
@@ -49,16 +49,16 @@ class ProductsTest < ApplicationSystemTestCase
     fill_in "Fit", with: @product.fit
     fill_in "Gender", with: @product.gender
     fill_in "Mark up", with: @product.mark_up
-    fill_in "Quality description", with: @product.quality_description
+    fill_in "Quality description", with: @product.quality_description_en
     fill_in "Quantity", with: @product.quantity
     fill_in "Rrp value", with: @product.rrp_value
-    fill_in "Sales description", with: @product.sales_description
+    fill_in "Sales description", with: @product.sales_description_en
     fill_in "Short description", with: @product.short_description
     fill_in "Size name", with: @product.size_name
     fill_in "Style name", with: @product.style_name
     fill_in "Style number", with: @product.style_number
     fill_in "Variant", with: @product.variant_id
-    fill_in "Wash care", with: @product.wash_care
+    fill_in "Wash care", with: @product.wash_care_en
     fill_in "Wsp value", with: @product.wsp_value
     click_on "Update Product"
 

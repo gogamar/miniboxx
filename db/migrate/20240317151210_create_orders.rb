@@ -9,6 +9,7 @@ class CreateOrders < ActiveRecord::Migration[7.0]
       t.string :payment_method
       t.string :payment_status
       t.string :shipping_method
+      t.string :payment_intent_id
       t.string :shipping_cost
       t.string :estimated_delivery_date
       t.string :tracking_number

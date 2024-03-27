@@ -5,6 +5,9 @@ class ApplicationController < ActionController::Base
   before_action :set_categories_with_stock
   protect_from_forgery with: :exception
 
+  require 'stripe'
+  Stripe.api_key = ENV['STRIPE_SECRET_KEY']
+
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name])
 

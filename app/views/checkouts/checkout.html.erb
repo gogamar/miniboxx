@@ -1,88 +1,82 @@
-<!--
-  This example requires some changes to your config:
-
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
--->
 <div class="bg-gray-50">
   <div class="mx-auto max-w-2xl px-4 pb-24 pt-16 sm:px-6 lg:max-w-7xl lg:px-8">
     <h2 class="sr-only">Checkout</h2>
     <div data-controller="modal">
       <%= render "shipping_addresses/shipping_address_modal" %>
-      <button data-action="modal#open" class="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-1 px-2.5 rounded">Open modal</button>
-    </div>
-    <div class="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16">
-      <%= form_with(url: orders_path, method: "post") do |form| %>
-        <div>
-          <div class="mt-10 border-t border-gray-200 pt-10">
-            <fieldset>
-              <legend class="text-lg font-medium text-gray-900"><%= t('shipping_address') %></legend>
-              <div class="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
-                <!--
-                Checked: "border-transparent", Not Checked: "border-gray-300"
-                Active: "ring-2 ring-indigo-500"
-              -->
-                <% current_user.shipping_addresses.each_with_index do |shipping_address, index| %>
-                  <%= form.radio_button :shipping_address, "Standard", class: "sr-only", id: "shipping-address-#{index + 1}" %>
-                  <%= form.label :shipping_address, class: "relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none" do %>
-                    <span class="flex flex-1">
-                      <span class="flex flex-col">
-                        <span id="shipping-address-name" class="block text-sm font-medium text-gray-900"><%= shipping_address.name %></span>
-                        <span id="shipping-address-lines" class="mt-1 flex items-center text-sm text-gray-500"><%= shipping_address.address_first %> <%= shipping_address.address_second %></span>
-                        <span id="shipping-address-city" class="mt-6 text-sm font-medium text-gray-900"><%= shipping_address.post_code %> <%= shipping_address.city %></span>
-                      </span>
-                    </span>
-                    <!-- Not Checked: "hidden" -->
-                    <svg class="h-5 w-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
-                    </svg>
-                    <!-- Active: "border", Not Active: "border-2", Checked: "border-indigo-500", Not Checked: "border-transparent" -->
-                    <span class="pointer-events-none absolute -inset-px rounded-lg border-2" aria-hidden="true"></span>
+      <%= form_with(url: orders_path) do |form| %>
+        <div class="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16">
+          <div data-controller="radio-buttons">
+            <div class="mt-10 border-t border-gray-200 pt-10">
+              <fieldset>
+                <legend class="text-lg font-medium text-gray-900"><%= t('shipping_address') %></legend>
+                <button type="button" data-action="modal#open" class="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-1 px-2.5 rounded">Add shipping address</button>
+                <div class="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
+                  <% if current_user.shipping_addresses.present? %>
+                    <% current_user.shipping_addresses.each_with_index do |shipping_address, index| %>
+                      <label class="relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none">
+                        <%= form.radio_button :shipping_address, shipping_address.id, class: "sr-only", data: { radio_buttons_target: "radioButton", checked_style: "border-transparent", unchecked_style: "border-gray-300", focus_style: "ring-2 ring-indigo-500"} %>
+                        <span class="flex flex-1">
+                          <span class="flex flex-col">
+                            <span id="shipping-address-0-label" class="block text-sm font-medium text-gray-900"><%= shipping_address.name %></span>
+                            <span id="shipping-address-0-description-0" class="mt-1 flex items-center text-sm text-gray-500"><%= shipping_address.address_first %></span>
+                            <span id="shipping-address-0-description-1" class="mt-6 text-sm font-medium text-gray-900"><%= shipping_address.city %></span>
+                          </span>
+                        </span>
+                        <svg class="hidden h-5 w-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+                        </svg>
+                        <span class="pointer-events-none absolute -inset-px rounded-lg border-2" aria-hidden="true"></span>
+                      </label>
+                    <% end %>
                   <% end %>
-                <% end %>
-              </div>
-            </fieldset>
+                </div>
+              </fieldset>
+            </div>
+            <div class="mt-10 border-t border-gray-200 pt-10">
+              <fieldset>
+                <legend class="text-lg font-medium text-gray-900"><%= t('billing_address') %></legend>
+                <div class="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
+                  <% if current_user.billing_addresses.present? %>
+                    <% current_user.billing_addresses.each_with_index do |billing_address, index| %>
+                      <label class="relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none">
+                        <%= form.radio_button :billing_address, "Standard", class: "sr-only", data: { radio_buttons_target: "radioButton", checked_style: "border-transparent", unchecked_style: "border-gray-300", focus_style: "ring-2 ring-indigo-500"} %>
+                        <span class="flex flex-1">
+                          <span class="flex flex-col">
+                            <span id="delivery-method-0-label" class="block text-sm font-medium text-gray-900">Standard</span>
+                            <span id="delivery-method-0-description-0" class="mt-1 flex items-center text-sm text-gray-500">4–10 business days</span>
+                            <span id="delivery-method-0-description-1" class="mt-6 text-sm font-medium text-gray-900">$5.00</span>
+                          </span>
+                        </span>
+                        <svg class="hidden h-5 w-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+                        </svg>
+                        <span class="pointer-events-none absolute -inset-px rounded-lg border-2" aria-hidden="true"></span>
+                      </label>
+                    <% end %>
+                  <% end %>
+                </div>
+              </fieldset>
+            </div>
           </div>
-          <div class="mt-10 border-t border-gray-200 pt-10">
-            <fieldset>
-              <legend class="text-lg font-medium text-gray-900"><%= t('billing_address') %></legend>
-              <div class="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
-                <!--
-                Checked: "border-transparent", Not Checked: "border-gray-300"
-                Active: "ring-2 ring-indigo-500"
-              -->
-                <% current_user.billing_addresses.each_with_index do |billing_address, index| %>
-                  <%= form.radio_button :billing_address, "Standard", class: "sr-only", id: "billing-address-#{index + 1}" %>
-                  <%= form.label :billing_address, class: "relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none" do %>
-                    <span class="flex flex-1">
-                      <span class="flex flex-col">
-                        <span id="billing-address-name" class="block text-sm font-medium text-gray-900"><%= billing_address.name %></span>
-                        <span id="billing-address-lines" class="mt-1 flex items-center text-sm text-gray-500"><%= billing_address.address_first %> <%= billing_address.address_second %></span>
-                        <span id="billing-address-city" class="mt-6 text-sm font-medium text-gray-900"><%= billing_address.post_code %> <%= billing_address.city %></span>
-                      </span>
-                    </span>
-                    <!-- Not Checked: "hidden" -->
-                    <svg class="h-5 w-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
-                    </svg>
-                    <!-- Active: "border", Not Active: "border-2", Checked: "border-indigo-500", Not Checked: "border-transparent" -->
-                    <span class="pointer-events-none absolute -inset-px rounded-lg border-2" aria-hidden="true"></span>
-                  <% end %>
-                <% end %>
+          <!-- Order summary -->
+          <div class="mt-10 lg:mt-0">
+            <h2 class="text-lg font-medium text-gray-900">Order summary</h2>
+            <div class="mt-4 rounded-lg border border-gray-200 bg-white shadow-sm">
+              <%= render "order_summary" %>
+              <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
+                <%= form.submit "Confirm order", class: "w-full rounded-md border border-transparent bg-indigo-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50" %>
               </div>
-            </fieldset>
+            </div>
           </div>
         </div>
       <% end %>
-      <%= render "order_summary" %>
     </div>
   </div>
 </div>
+<% if params["redirect_status"] == "succeeded" %>
+  <div class="alert alert-success">Payment successful</div>
+<% elsif params["redirect_status"] == "failed" %>
+  <div class="alert alert-danger">Payment failed. Please try again with a different payment method.</div>
+<% end %>
+<p><%# link_to "Pay for order", order_pay_path(order_id: @order.id), class: "btn btn-success" if @order.status == "pending" %></p>
+<p><%= link_to "Pay for order", order_pay_path(order_id: @order.id), class: "btn btn-success" %></p>

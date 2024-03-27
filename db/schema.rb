@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_19_205601) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_27_023332) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -155,6 +155,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_19_205601) do
     t.bigint "shipping_address_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "payment_intent_id"
     t.index ["billing_address_id"], name: "index_orders_on_billing_address_id"
     t.index ["shipping_address_id"], name: "index_orders_on_shipping_address_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
@@ -163,8 +164,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_19_205601) do
   create_table "products", force: :cascade do |t|
     t.integer "style_number"
     t.string "style_name"
-    t.text "sales_description"
-    t.text "quality_description"
+    t.text "sales_description_en"
+    t.text "quality_description_en"
     t.text "short_description"
     t.string "gender"
     t.string "fit"
@@ -173,12 +174,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_19_205601) do
     t.decimal "rrp_value"
     t.decimal "mark_up"
     t.string "care_label"
-    t.text "wash_care"
+    t.text "wash_care_en"
     t.text "fashion_forward"
     t.bigint "sub_category_id"
     t.bigint "sub_brand_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "sales_description_es"
+    t.text "quality_description_es"
+    t.text "wash_care_es"
     t.index ["sub_brand_id"], name: "index_products_on_sub_brand_id"
     t.index ["sub_category_id"], name: "index_products_on_sub_category_id"
   end
