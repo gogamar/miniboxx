@@ -1,8 +1,8 @@
 class CartItem < ApplicationRecord
   belongs_to :cart
-  belongs_to :variant_size
-  has_one :variant, through: :variant_size
-  has_one :size, through: :variant_size
+  belongs_to :product
+  has_one :variant, through: :product
+  has_one :size, through: :product
 
   after_save :update_cart_total_price
   after_destroy :update_cart_total_price

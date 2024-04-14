@@ -34,7 +34,7 @@
           <div class="mt-8 border-t border-gray-200 pt-8">
             <h2 class="text-sm font-medium text-gray-900">Quality Description</h2>
             <div class="prose prose-sm mt-4 text-gray-500">
-              <%= @variant.product.quality_description_es&.html_safe %>
+              <%= @variant.style.quality_description_es&.html_safe %>
             </div>
           </div>
         </div>
@@ -42,32 +42,32 @@
           <div class="mt-8 border-t border-gray-200 pt-8">
             <h2 class="text-sm font-medium text-gray-900">Fabric &amp; Care</h2>
             <div class="prose prose-sm mt-4 text-gray-500">
-              <%= @variant.product.wash_care_es&.html_safe %>
+              <%= @variant.style.wash_care_es&.html_safe %>
             </div>
           </div>
         </div>
       </div>
-      <!-- Product info -->
+      <!-- Style info -->
       <div class="col-span-5 mt-10 px-4 sm:mt-16 sm:px-0 lg:mt-0">
-        <h1 class="text-2xl font-bold tracking-tight text-gray-900"><%= @variant.product.sub_category.name %> <%= @variant.color.name %></h1>
-        <h2 class="tracking-tight text-gray-800"><%= @variant.product.sub_brand.name %></h2>
+        <h1 class="text-2xl font-bold tracking-tight text-gray-900"><%= @variant.style.sub_category&.name %> <%= @variant.color&.name %></h1>
+        <h2 class="tracking-tight text-gray-800"><%= @variant.style.brand&.name %></h2>
         <div class="mt-3">
-          <h2 class="sr-only"><%= @variant.product.style_name %></h2>
-          <p class="text-3xl tracking-tight text-gray-900"><%= @variant.product.rrp_value %>€</p>
+          <h2 class="sr-only"><%= @variant.style.style_name %></h2>
+          <p class="text-3xl tracking-tight text-gray-900"><%= @variant.rrp_value %>€</p>
         </div>
         <div class="mt-3">
           <h2 class="sr-only">Description</h2>
           <div class="prose prose-sm mt-4 text-gray-500">
-            <p><%= @variant.product.sales_description_es&.html_safe %></p>
+            <p><%= @variant.style.sales_description_es&.html_safe %></p>
           </div>
         </div>
         <div class="mt-6">
           <h3 class="text-sm text-gray-600">Color</h3>
           <div class="mt-2 flex items-center space-x-3">
-            <% @variant.product.variants.each do |variant| %>
+            <% @variant.style.variants.each do |variant| %>
               <% active_ring = current_page?(variant_path(variant)) ? "ring ring-offset-1" : "" %>
-              <%= link_to variant, class: "block w-8 h-8 rounded-full border border-black border-opacity-10 #{active_ring}", style: "background-color: #{variant.color.color_code}" do %>
-                <span class="sr-only"><%= variant.color.name %></span>
+              <%= link_to variant, class: "block w-8 h-8 rounded-full border border-black border-opacity-10 #{active_ring}", style: "background-color: #{variant.color&.color_code}" do %>
+                <span class="sr-only"><%= variant.color&.name %></span>
               <% end %>
             <% end %>
           </div>
@@ -82,11 +82,11 @@
             <fieldset class="mt-2">
               <legend class="sr-only">Choose a size</legend>
               <div class="grid grid-cols-3 gap-3 sm:grid-cols-6">
-                <% @variant.variant_sizes.each_with_index do |variant_size, index| %>
-                  <% stock_class = variant_size.quantity > 0 ? "cursor-pointer" : "opacity-25 cursor-not-allowed" %>
+                <% @variant.products.each_with_index do |product, index| %>
+                  <% stock_class = product.current_stock > 0 ? "cursor-pointer" : "opacity-25 cursor-not-allowed" %>
                   <label class="flex items-center justify-center rounded-md border py-3 px-3 text-sm font-medium uppercase sm:flex-1 cursor-pointer focus:outline-none <%= stock_class %> border-gray-200 bg-white text-gray-900 hover:bg-gray-50">
-                    <%= form.radio_button "variant_size_id", variant_size.id, class: "sr-only", id: "variant-size-#{index}", required: true, data: { radio_buttons_target: "radioButton", checked_style: "border-transparent bg-cyan-600 text-white hover:bg-cyan-700 ring-2 ring-cyan-500 ring-offset-2", unchecked_style: "border-gray-200 bg-white text-gray-900 hover:bg-gray-50", focus_style: "ring-2 ring-cyan-500 ring-offset-2"} %>
-                    <span id="variant-size-<%= index %>-label"><%= variant_size.size.name %></span>
+                    <%= form.radio_button "product_id", product.id, class: "sr-only", id: "variant-size-#{index}", required: true, data: { radio_buttons_target: "radioButton", checked_style: "border-transparent bg-cyan-600 text-white hover:bg-cyan-700 ring-2 ring-cyan-500 ring-offset-2", unchecked_style: "border-gray-200 bg-white text-gray-900 hover:bg-gray-50", focus_style: "ring-2 ring-cyan-500 ring-offset-2"} %>
+                    <span id="variant-size-<%= index %>-label"><%= product.size.name %></span>
                   </label>
                 <% end %>
               </div>

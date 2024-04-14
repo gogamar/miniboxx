@@ -1,26 +1,26 @@
 <li class="flex py-6 sm:py-10">
   <div class="flex-shrink-0">
-    <img src=<%= cart_item.variant.image_urls.first.url %>
-    alt=<%= cart_item.variant.product.sub_category.name %> class="h-24 w-24 rounded-md object-contain object-center sm:h-48 sm:w-48">
+    <img src=<%= cart_item.variant.image_urls.first.url if cart_item.variant.image_urls %>
+    alt=<%= cart_item.variant.style.sub_category.name %> class="h-24 w-24 rounded-md object-contain object-center sm:h-48 sm:w-48">
   </div>
   <div class="ml-4 flex flex-1 flex-col justify-between sm:ml-6">
     <div class="relative pr-9 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
       <div>
         <div class="flex justify-between">
           <h3 class="text-sm">
-            <%= link_to cart_item.variant.product.sub_category.name, cart_item.variant, class: "font-medium text-gray-700 hover:text-gray-800" %>
+            <%= link_to cart_item.variant.style.sub_category.name, cart_item.variant, class: "font-medium text-gray-700 hover:text-gray-800" %>
           </h3>
         </div>
         <div class="mt-1 flex text-sm">
-          <p class="text-gray-500"><%= cart_item.variant.color.name %></p>
+          <p class="text-gray-500"><%= cart_item.variant.color&.name %></p>
           <p class="ml-4 border-l border-gray-200 pl-4 text-gray-500">Large</p>
         </div>
-        <p class="mt-1 text-sm font-medium text-gray-900"><%= cart_item.variant.product.rrp_value %>€</p>
+        <p class="mt-1 text-sm font-medium text-gray-900"><%= cart_item.product.variant.rrp_value %>€</p>
       </div>
       <div class="mt-4 sm:mt-0 sm:pr-9">
         <label for="quantity-0" class="sr-only"><%= t('quantity') %></label>
-        <select data-cart-target="quantity" data-price="<%= cart_item.variant.product.rrp_value %>" data-action="cart#updatePrice" id="quantity-0" name="quantity-0" class="max-w-full rounded-md border border-gray-300 py-1.5 text-left text-base font-medium leading-5 text-gray-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm">
-          <% (1..cart_item.variant_size.quantity).to_a.each do |q| %>
+        <select data-cart-target="quantity" data-price="<%= cart_item.product.variant.rrp_value %>" data-action="cart#updatePrice" id="quantity-0" name="quantity-0" class="max-w-full rounded-md border border-gray-300 py-1.5 text-left text-base font-medium leading-5 text-gray-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm">
+          <% (1..cart_item.product.current_stock).to_a.each do |q| %>
             <option value="<%= q %>"><%= q %></option>
           <% end %>
         </select>

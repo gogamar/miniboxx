@@ -9,7 +9,7 @@
   </p>
   <p class="my-5">
     <strong class="block font-medium mb-1">Product:</strong>
-    <%= cart_item.variant_size.variant.product.style_name %>
+    <%= cart_item.product.variant.style.style_name %>
   </p>
   <% if action_name != "show" %>
     <%= link_to "Show this cart item", cart_item, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>

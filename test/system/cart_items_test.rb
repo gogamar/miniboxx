@@ -15,7 +15,7 @@ class CartItemsTest < ApplicationSystemTestCase
     click_on "New cart item"
 
     fill_in "Cart", with: @cart_item.cart_id
-    fill_in "Product", with: @cart_item.product_id
+    fill_in "Style", with: @cart_item.product_id
     fill_in "Quantity", with: @cart_item.quantity
     click_on "Create Cart item"
 
@@ -28,7 +28,7 @@ class CartItemsTest < ApplicationSystemTestCase
     click_on "Edit this cart item", match: :first
 
     fill_in "Cart", with: @cart_item.cart_id
-    fill_in "Product", with: @cart_item.product_id
+    fill_in "Style", with: @cart_item.product_id
     fill_in "Quantity", with: @cart_item.quantity
     click_on "Update Cart item"
 

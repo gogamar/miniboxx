@@ -15,7 +15,7 @@ class VariantsTest < ApplicationSystemTestCase
     click_on "New variant"
 
     fill_in "External", with: @variant.external_id
-    fill_in "Product", with: @variant.product_id
+    fill_in "Style", with: @variant.style_id
     click_on "Create Variant"
 
     assert_text "Variant was successfully created"
@@ -27,7 +27,7 @@ class VariantsTest < ApplicationSystemTestCase
     click_on "Edit this variant", match: :first
 
     fill_in "External", with: @variant.external_id
-    fill_in "Product", with: @variant.product_id
+    fill_in "Style", with: @variant.style_id
     click_on "Update Variant"
 
     assert_text "Variant was successfully updated"

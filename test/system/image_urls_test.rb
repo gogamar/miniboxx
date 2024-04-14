@@ -16,7 +16,7 @@ class ImageUrlsTest < ApplicationSystemTestCase
 
     fill_in "Photo", with: @image_url.photo_id
     fill_in "Position", with: @image_url.position
-    fill_in "Product", with: @image_url.product_id
+    fill_in "Style", with: @image_url.product_id
     fill_in "Url", with: @image_url.url
     click_on "Create Image url"
 
@@ -30,7 +30,7 @@ class ImageUrlsTest < ApplicationSystemTestCase
 
     fill_in "Photo", with: @image_url.photo_id
     fill_in "Position", with: @image_url.position
-    fill_in "Product", with: @image_url.product_id
+    fill_in "Style", with: @image_url.product_id
     fill_in "Url", with: @image_url.url
     click_on "Update Image url"
 

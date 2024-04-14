@@ -1,79 +1,21 @@
-<div id="<%= dom_id product %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Style number:</strong>
-    <%= product.style_number %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Style name:</strong>
-    <%= product.style_name %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Sales description:</strong>
-    <%= product.sales_description_en %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Quality description:</strong>
-    <%= product.quality_description_en %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Short description:</strong>
-    <%= product.short_description %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Gender:</strong>
-    <%= product.gender %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Fit:</strong>
-    <%= product.fit %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Size name:</strong>
-    <%= product.size_name %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Color name:</strong>
-    <%= product.color_name %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Variant:</strong>
-    <%= product.variant_id %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Composition:</strong>
-    <%= product.composition %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Wsp value:</strong>
-    <%= product.wsp_value %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Rrp value:</strong>
-    <%= product.rrp_value %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Quantity:</strong>
-    <%= product.quantity %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Mark up:</strong>
-    <%= product.mark_up %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Care label:</strong>
-    <%= product.care_label %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Wash care:</strong>
-    <%= product.wash_care_en %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Fashion forward:</strong>
-    <%= product.fashion_forward %>
-  </p>
-  <% if action_name != "show" %>
-    <%= link_to "Show this product", product, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Edit this product", edit_product_path(product), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
-  <% end %>
+<div class="group relative">
+  <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
+    <% if product.variant.image_urls %>
+      <a href="<%= product_path(product) %>">
+        <img src="<%= product.variant.image_urls.first.url + "?v=MpPkdtjht/UfWaMls2WGsQ==&width=400&mode=max" %>" alt="<%= product.variant.style.short_description %>" class="h-full w-full object-contain object-center lg:h-full lg:w-full">
+      </a>
+    <% end %>
+  </div>
+  <div class="mt-4 flex justify-between">
+    <div>
+      <h3 class="text-sm text-gray-700">
+        <a href="<%= product_path(product) %>">
+          <span aria-hidden="true" class="absolute inset-0"></span>
+          <%= product.variant.style.short_description %>
+        </a>
+      </h3>
+      <p class="mt-1 text-sm text-gray-500"><%= product.variant.color&.name %></p>
+    </div>
+    <p class="text-sm font-medium text-gray-900"><%= product.variant.rrp_value %>€</p>
+  </div>
 </div>

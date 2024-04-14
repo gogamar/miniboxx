@@ -8,9 +8,13 @@ Rails.application.routes.draw do
     get 'checkout', to: 'checkouts#checkout', as: :checkout
     get 'confirm', to: 'checkouts#confirm', as: :confirm
     post 'create-payment-intent', to: 'payments#create_payment_intent'
+    get 'get_products_from_epos', to: 'imports#get_products_from_epos'
+    post 'upload_products', to: 'imports#upload_products'
+    get 'upload_form', to: 'imports#upload_form'
     resources :sizes
     resources :colors
     resources :variants
+    resources :products
     resources :order_items
     resources :orders, only: [:index, :show, :create] do
       get "/pay", to: "payments#pay", as: :pay
@@ -20,20 +24,13 @@ Rails.application.routes.draw do
     resources :billing_addresses
     resources :shipping_addresses
     resources :image_urls
-    resources :products
-    resources :sub_brands
+    resources :styles
+    resources :suppliers
     resources :brands
     resources :sub_categories
     resources :categories
     devise_for :users
 
-
-    resource :imports, only: [] do
-      collection do
-        get 'upload_form'
-        post 'upload_products'
-      end
-    end
 
     # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

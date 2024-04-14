@@ -55,7 +55,7 @@
                 <!-- Active: "bg-gray-100", Not Active: "" -->
                 <% if user_signed_in? && current_user.admin? %>
                   <%= link_to t('add_product'), new_product_path, class: "block px-4 py-2 text-sm text-gray-700", role: "menuitem", tabindex: "-1" %>
-                  <%= link_to t('upload_products'), upload_form_imports_path, class: "block px-4 py-2 text-sm text-gray-700", role: "menuitem", tabindex: "-1" %>
+                  <%= link_to t('upload_products'), upload_form_path, class: "block px-4 py-2 text-sm text-gray-700", role: "menuitem", tabindex: "-1" %>
                 <% end %>
                 <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0"><%= t('your_profile') %></a>
                 <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1"><%= t('settings') %></a>

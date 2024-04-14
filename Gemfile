@@ -84,4 +84,6 @@ gem "roo", "~> 2.10.0"
 gem 'nokogiri'
 gem 'stripe'
 gem 'stripe_event'
+gem 'httparty'
+
 # gem "pundit"

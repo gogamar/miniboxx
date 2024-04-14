@@ -4,22 +4,20 @@ class VariantsController < ApplicationController
 
   def index
     @variants = Variant.joins(:image_urls).distinct
-    @products = Product.all
-    @products = Product.filter_by_category(params[:category_id], @products)
-    @products = Product.filter_by_gender(params[:gender], @products)
-    @variants = Variant.where(product_id: @products.ids)
+    @styles = Style.all
+    @styles = Style.filter_by_category(params[:category_id], @styles)
+    @styles = Style.filter_by_gender(params[:gender], @styles)
+    @variants = Variant.where(style_id: @styles.ids)
   end
 
   def show
     @cart_item = CartItem.new
   end
 
-  # GET /variants/new
   def new
     @variant = Variant.new
   end
 
-  # GET /variants/1/edit
   def edit
   end
 
@@ -50,13 +48,12 @@ class VariantsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_variant
       @variant = Variant.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def variant_params
-      params.require(:variant).permit(:external_id, :product_id, :color_id)
+      params.require(:variant).permit(:external_id, :product_id, :color_id, :wsp_value, :rrp_value, :mark_up)
     end
 end

@@ -1,9 +1,9 @@
 <h1>Your Cart</h1>
-<% @cart_contents.each do |variant_id, variant_sizes| %>
+<% @cart_contents.each do |variant_id, products| %>
   <% variant = Variant.find_by(id: variant_id) %>
   <h2><%= variant.name %></h2>
-  <% variant_sizes.each do |variant_size_id, quantity| %>
-    <% variant_size = VariantSize.find_by(id: variant_size_id) %>
-    <p><%= variant_size.size.name %>: <%= quantity %></p>
+  <% products.each do |product_id, quantity| %>
+    <% product = Product.find_by(id: product_id) %>
+    <p><%= product.size.name %>: <%= quantity %></p>
   <% end %>
 <% end %>

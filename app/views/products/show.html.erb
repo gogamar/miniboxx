@@ -1,15 +1,124 @@
-<div class="mx-auto md:w-2/3 w-full flex">
-  <div class="mx-auto">
-    <% if notice.present? %>
-      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-    <% end %>
-
-    <%= render @product %>
-
-    <%= link_to "Edit this product", edit_product_path(@product), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to "Destroy this product", product_path(@product), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+<div class="bg-white">
+  <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+    <div class="lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-8">
+      <!-- Image gallery -->
+      <div class="col-span-7 lg:grid lg:grid-cols-12" data-controller="tabs">
+        <!-- Image selector -->
+        <div class="col-span-2">
+          <div class="mx-auto mt-6 hidden w-full max-w-2xl sm:block lg:max-w-none">
+            <div class="grid grid-cols-1 gap-6" aria-orientation="horizontal" role="tablist">
+              <% @product.variant.image_urls.each_with_index do |image_url, index| %>
+                <button id="tabs-2-tab-<%= index + 1 %>" class="relative flex h-24 cursor-pointer items-center justify-center rounded-md bg-white text-sm font-medium uppercase text-gray-900 hover:bg-gray-50 focus:outline-none focus:ring focus:ring-opacity-50 focus:ring-offset-4" aria-controls="tabs-2-panel-<%= index + 1 %>" role="tab" type="button" data-tabs-target="tab" data-action="click->tabs#change">
+                  <span class="sr-only">Angled view</span>
+                  <span class="absolute inset-0 overflow-hidden rounded-md">
+                    <img src=<%= image_url.url %> alt="" class="h-full w-full object-contain object-center">
+                  </span>
+                  <!-- Selected: "ring-cyan-500", Not Selected: "ring-transparent" -->
+                  <span class="ring-transparent pointer-events-none absolute inset-0 rounded-md ring-2 ring-offset-2" aria-hidden="true"></span>
+                </button>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="col-span-10">
+          <div class="aspect-h-1 aspect-w-1 w-full">
+            <!-- Tab panel, show/hide based on tab state. -->
+            <% @product.variant.image_urls.each_with_index do |image_url, index| %>
+              <div id="tabs-2-panel-<%= index + 1 %>" aria-labelledby="tabs-2-tab-<%= index + 1 %>" role="tabpanel" tabindex="0" data-tabs-target="panel">
+                <img src=<%= image_url.url %> alt="Angled front view with bag zipped and handles upright." class="h-full w-full object-contain object-center sm:rounded-lg">
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="col-span-12 row-start-2">
+          <div class="mt-8 border-t border-gray-200 pt-8">
+            <h2 class="text-sm font-medium text-gray-900">Quality Description</h2>
+            <div class="prose prose-sm mt-4 text-gray-500">
+              <%= @product.variant.style.quality_description_es&.html_safe %>
+            </div>
+          </div>
+        </div>
+        <div class="col-span-12 row-start-3">
+          <div class="mt-8 border-t border-gray-200 pt-8">
+            <h2 class="text-sm font-medium text-gray-900">Fabric &amp; Care</h2>
+            <div class="prose prose-sm mt-4 text-gray-500">
+              <%= @product.variant.style.wash_care_es&.html_safe %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Style info -->
+      <div class="col-span-5 mt-10 px-4 sm:mt-16 sm:px-0 lg:mt-0">
+        <h1 class="text-2xl font-bold tracking-tight text-gray-900"><%= @product.variant.style.sub_category&.name %> <%= @product.variant.color&.name %></h1>
+        <h2 class="tracking-tight text-gray-800"><%= @product.variant.style.brand&.name %></h2>
+        <div class="mt-3">
+          <h2 class="sr-only"><%= @product.variant.style.style_name %></h2>
+          <p class="text-3xl tracking-tight text-gray-900"><%= @product.variant.rrp_value %>€</p>
+        </div>
+        <div class="mt-3">
+          <h2 class="sr-only">Description</h2>
+          <div class="prose prose-sm mt-4 text-gray-500">
+            <p><%= @product.variant.style.sales_description_es&.html_safe %></p>
+          </div>
+        </div>
+        <div class="mt-6">
+          <h3 class="text-sm text-gray-600">Color</h3>
+          <div class="mt-2 flex items-center space-x-3">
+            <% @product.variant.style.variants.each do |variant| %>
+              <% active_ring = current_page?(variant_path(variant)) ? "ring ring-offset-1" : "" %>
+              <%= link_to variant, class: "block w-8 h-8 rounded-full border border-black border-opacity-10 #{active_ring}", style: "background-color: #{variant.color&.color_code}" do %>
+                <span class="sr-only"><%= variant.color&.name %></span>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+        <%= form_with(model: @cart_item, local: true, class: "mt-6") do |form| %>
+          <!-- Size picker -->
+          <div class="mt-8" data-controller="radio-buttons">
+            <div class="flex items-center justify-between">
+              <h2 class="text-sm font-medium text-gray-900">Size</h2>
+              <a href="#" class="text-sm font-medium text-cyan-600 hover:text-cyan-500">See sizing chart</a>
+            </div>
+            <fieldset class="mt-2">
+              <legend class="sr-only">Choose a size</legend>
+              <div class="grid grid-cols-3 gap-3 sm:grid-cols-6">
+                <% @products.each_with_index do |product, index| %>
+                  <% stock_class = product.current_stock > 0 ? "cursor-pointer" : "opacity-25 cursor-not-allowed" %>
+                  <label class="flex items-center justify-center rounded-md border py-3 px-3 text-sm font-medium uppercase sm:flex-1 cursor-pointer focus:outline-none <%= stock_class %> border-gray-200 bg-white text-gray-900 hover:bg-gray-50">
+                    <%= form.radio_button "product_id", product.id, class: "sr-only", id: "variant-size-#{index}", required: true, data: { radio_buttons_target: "radioButton", checked_style: "border-transparent bg-cyan-600 text-white hover:bg-cyan-700 ring-2 ring-cyan-500 ring-offset-2", unchecked_style: "border-gray-200 bg-white text-gray-900 hover:bg-gray-50", focus_style: "ring-2 ring-cyan-500 ring-offset-2"} %>
+                    <span id="variant-size-<%= index %>-label"><%= product.size.name %></span>
+                  </label>
+                <% end %>
+              </div>
+            </fieldset>
+          </div>
+          <%= form.submit "Add to Cart", class: "mt-8 flex w-full items-center justify-center rounded-md border border-transparent bg-cyan-600 px-8 py-3 text-base font-medium text-white hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2" %>
+        <% end %>
+        <!-- Policies -->
+        <section aria-labelledby="policies-heading" class="mt-10">
+          <h2 id="policies-heading" class="sr-only">Our Policies</h2>
+          <dl class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+            <div class="rounded-lg border border-gray-200 bg-gray-50 p-6 text-center">
+              <dt>
+                <svg class="mx-auto h-6 w-6 flex-shrink-0 text-gray-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6.115 5.19l.319 1.913A6 6 0 008.11 10.36L9.75 12l-.387.775c-.217.433-.132.956.21 1.298l1.348 1.348c.21.21.329.497.329.795v1.089c0 .426.24.815.622 1.006l.153.076c.433.217.956.132 1.298-.21l.723-.723a8.7 8.7 0 002.288-4.042 1.087 1.087 0 00-.358-1.099l-1.33-1.108c-.251-.21-.582-.299-.905-.245l-1.17.195a1.125 1.125 0 01-.98-.314l-.295-.295a1.125 1.125 0 010-1.591l.13-.132a1.125 1.125 0 011.3-.21l.603.302a.809.809 0 001.086-1.086L14.25 7.5l1.256-.837a4.5 4.5 0 001.528-1.732l.146-.292M6.115 5.19A9 9 0 1017.18 4.64M6.115 5.19A8.965 8.965 0 0112 3c1.929 0 3.716.607 5.18 1.64" />
+                </svg>
+                <span class="mt-4 text-sm font-medium text-gray-900">International delivery</span>
+              </dt>
+              <dd class="mt-1 text-sm text-gray-500">Get your order in 2 years</dd>
+            </div>
+            <div class="rounded-lg border border-gray-200 bg-gray-50 p-6 text-center">
+              <dt>
+                <svg class="mx-auto h-6 w-6 flex-shrink-0 text-gray-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span class="mt-4 text-sm font-medium text-gray-900">Loyalty rewards</span>
+              </dt>
+              <dd class="mt-1 text-sm text-gray-500">Don&#039;t look at other tees</dd>
+            </div>
+          </dl>
+        </section>
+      </div>
     </div>
-    <%= link_to "Back to products", products_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
   </div>
 </div>

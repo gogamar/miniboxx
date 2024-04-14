@@ -3,12 +3,12 @@ class SessionCartsController < ApplicationController
 
   def add_to_cart
     puts "these are the params in add to cart: #{params}"
-    variant_size = Variant.find_by(id: params[:variant_size])
+    product = Variant.find_by(id: params[:product])
 
-    variant = variant_size.variant
+    variant = product.variant
 
-    if variant && variant_size
-      @cart.add_variant(variant, variant_size)
+    if variant && product
+      @cart.add_variant(variant, product)
       flash[:success] = "Variant added to cart successfully!"
     else
       flash[:error] = "Failed to add variant to cart. Variant or variant size not found."

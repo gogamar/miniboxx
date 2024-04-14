@@ -9,7 +9,10 @@ class CreateVariants < ActiveRecord::Migration[7.0]
 
     create_table :variants do |t|
       t.string :external_id
-      t.references :product, null: false, foreign_key: true
+      t.decimal :wsp_value
+      t.decimal :rrp_value
+      t.decimal :mark_up
+      t.references :style, null: false, foreign_key: true
       t.references :color, foreign_key: true
 
       t.timestamps

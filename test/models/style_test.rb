@@ -1,6 +1,6 @@
 require "test_helper"
 
-class SubBrandTest < ActiveSupport::TestCase
+class StyleTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

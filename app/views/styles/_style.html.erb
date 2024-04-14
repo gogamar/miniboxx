@@ -1,0 +1,63 @@
+<div id="<%= dom_id product %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Style number:</strong>
+    <%= product.style_number %>
+  </p>
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Style name:</strong>
+    <%= product.style_name %>
+  </p>
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Sales description:</strong>
+    <%= product.sales_description_en %>
+  </p>
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Quality description:</strong>
+    <%= product.quality_description_en %>
+  </p>
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Short description:</strong>
+    <%= product.short_description %>
+  </p>
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Gender:</strong>
+    <%= product.gender %>
+  </p>
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Fit:</strong>
+    <%= product.fit %>
+  </p>
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Size name:</strong>
+    <%= product.size_name %>
+  </p>
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Color name:</strong>
+    <%= product.color_name %>
+  </p>
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Variant:</strong>
+    <%= product.variant_id %>
+  </p>
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Composition:</strong>
+    <%= product.composition %>
+  </p>
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Care label:</strong>
+    <%= product.care_label %>
+  </p>
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Wash care:</strong>
+    <%= product.wash_care_en %>
+  </p>
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Fashion forward:</strong>
+    <%= product.fashion_forward %>
+  </p>
+  <% if action_name != "show" %>
+    <%= link_to "Show this product", product, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Edit this product", edit_product_path(product), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

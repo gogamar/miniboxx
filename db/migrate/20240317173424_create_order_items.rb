@@ -3,7 +3,7 @@ class CreateOrderItems < ActiveRecord::Migration[7.0]
     create_table :order_items do |t|
       t.integer :quantity
       t.decimal :price_at_order_time
-      t.references :variant_size, foreign_key: true
+      t.references :product, foreign_key: true
       t.references :order, null: false, foreign_key: true
 
       t.timestamps

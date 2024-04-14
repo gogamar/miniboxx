@@ -2,25 +2,27 @@ class ProductsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[ index show ]
   before_action :set_product, only: %i[ show edit update destroy ]
 
-  # GET /products
   def index
     @products = Product.all
+    @variants_with_images = Variant.joins(:image_urls).distinct
+    @styles = Style.all
+    @styles = Style.filter_by_category(params[:category_id], @styles)
+    @styles = Style.filter_by_gender(params[:gender], @styles)
+    variant_ids = Variant.where(style_id: @styles.ids).pluck(:id)
+    @products = Product.where(variant_id: variant_ids)
   end
 
-  # GET /products/1
   def show
+    @cart_item = CartItem.new
   end
 
-  # GET /products/new
   def new
     @product = Product.new
   end
 
-  # GET /products/1/edit
   def edit
   end
 
-  # POST /products
   def create
     @product = Product.new(product_params)
 
@@ -31,7 +33,6 @@ class ProductsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /products/1
   def update
     if @product.update(product_params)
       redirect_to @product, notice: "Product was successfully updated.", status: :see_other
@@ -40,20 +41,17 @@ class ProductsController < ApplicationController
     end
   end
 
-  # DELETE /products/1
   def destroy
     @product.destroy
     redirect_to products_url, notice: "Product was successfully destroyed.", status: :see_other
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_product
       @product = Product.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def product_params
-      params.require(:product).permit(:style_number, :style_name, :sales_description_en, :quality_description_en, :short_description, :gender, :fit, :size_name, :color_name, :variant_id, :composition, :wsp_value, :rrp_value, :quantity, :mark_up, :care_label, :wash_care_en, :fashion_forward, :sales_description_es, :quality_description_es, :wash_care_es)
+      params.require(:product).permit(:current_stock, :epos_product_id, :barcode, :variant_id, :size_id)
     end
 end

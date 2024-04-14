@@ -3,22 +3,18 @@
     <strong class="block font-medium mb-1">Quantity:</strong>
     <%= order_item.quantity %>
   </p>
-
   <p class="my-5">
     <strong class="block font-medium mb-1">Price at order time:</strong>
     <%= order_item.price_at_order_time %>
   </p>
-
   <p class="my-5">
     <strong class="block font-medium mb-1">Product:</strong>
     <%= order_item.product_id %>
   </p>
-
   <p class="my-5">
     <strong class="block font-medium mb-1">Order:</strong>
     <%= order_item.order_id %>
   </p>
-
   <% if action_name != "show" %>
     <%= link_to "Show this order item", order_item, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <%= link_to "Edit this order item", edit_order_item_path(order_item), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>

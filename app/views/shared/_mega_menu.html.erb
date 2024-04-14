@@ -15,8 +15,8 @@
             <p id="desktop-featured-heading-0" class="font-medium text-gray-900"><%= t('category') %></p>
             <ul role="list" aria-labelledby="desktop-featured-heading-0" class="mt-6 space-y-6 sm:mt-4 sm:space-y-4">
               <% @categories_with_stock.each do |category| %>
-                <% category_products = category.products.where(gender: gender) %>
-                <% if category_products.any? %>
+                <% category_styles = category.styles.where(gender: gender) %>
+                <% if category_styles.any? %>
                   <li class="flex">
                     <%= link_to category.name, variants_path(category_id: category.id, gender: gender), class: "hover:text-gray-800", data: { dropdown_target: "menuItem"} %>
                   </li>

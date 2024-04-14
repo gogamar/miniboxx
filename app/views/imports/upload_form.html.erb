@@ -1,5 +1,5 @@
 <h1>Upload Products</h1>
-<%= form_tag(upload_products_imports_path, multipart: true) do %>
+<%= form_tag(upload_products_path, multipart: true) do %>
   <div class="form-group">
     <%= label_tag :file, 'Select Excel Spreadsheet File' %>
     <%= file_field_tag :file, class: 'form-control-file' %>
